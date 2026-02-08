@@ -1,7 +1,6 @@
 package MODELO.ENTIDADE;
 
 import java.time.LocalDateTime;
-
 import Visao.DateUtil.DateUtil;
 
 public class Consulta {
