@@ -44,3 +44,20 @@ public boolean consultaDeletar(int matricula, String cpf, Consulta consulta) {
         }
         return sucesso;
     }
+
+public boolean atualizarHorario(int matricula, String cpf, Consulta consulta, LocalDateTime novaData) {
+        String sql = "UPDATE Consulta SET horario = ? WHERE idMedico = (SELECT idMedico FROM Medico WHERE matricula = ?) AND idPaciente = (SELECT idPaciente FROM Paciente WHERE cpf = ?) AND horario = ?";
+        boolean sucesso;
+
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setObject(1, novaData);
+            stmt.setInt(2, matricula);
+            stmt.setString(3, cpf);
+            stmt.setObject(4, consulta.getHorario());
+
+            sucesso = stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            sucesso = false;
+        }
+        return sucesso;
+    }
