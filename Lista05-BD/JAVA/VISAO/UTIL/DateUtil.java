@@ -50,7 +50,7 @@ public final class DateUtil {
             return datetimeFormatter.format(date);
 
         } else {
-            throw new RuntimeException(date.getClass() + "is not a valid type for this method!");
+            throw new RuntimeException(date.getClass() +"is not a valid type for this method!");
         }
     }
 }
