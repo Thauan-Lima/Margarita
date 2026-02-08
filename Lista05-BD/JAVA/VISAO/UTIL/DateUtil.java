@@ -42,19 +42,3 @@ public final class DateUtil {
                         throw new RuntimeException(date.getClass() + " is not a valid type for this method!");
                 }
         }
-
-        public static void main(String[] args) {
-                System.out.println(stringToDate("20/01/2025", LocalDate.class));
-                System.out.println(stringToDate("20/01/2025 02:30:16", LocalDateTime.class));
-
-                System.out.println(stringToDate("16/13/1999", LocalDate.class));
-                System.out.println(stringToDate("16/13/1999 22:45:10", LocalDateTime.class));
-
-                System.out.println(dateToString(LocalDate.now()));
-                System.out.println(dateToString(LocalDateTime.now()));
-
-                // System.out.println(dateToString(new Date()));
-                // System.out.println(stringToDate("16/13/1999 22:45:10", String.class));
-        }
-
-}
