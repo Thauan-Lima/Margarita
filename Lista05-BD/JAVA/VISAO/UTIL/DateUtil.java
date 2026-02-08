@@ -12,11 +12,9 @@ public final class DateUtil {
         private static final String DATE_FORMAT = "dd/MM/uuuu";
         private static final String DATETIME_FORMAT = DATE_FORMAT + " HH:mm:ss";
 
-        private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
-                        .withResolverStyle(ResolverStyle.STRICT);
+        private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
-        private static final DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT)
-                        .withResolverStyle(ResolverStyle.STRICT);
+        private static final DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT).withResolverStyle(ResolverStyle.STRICT);
 
         private DateUtil() {
         }
