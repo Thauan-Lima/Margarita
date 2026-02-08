@@ -1,4 +1,4 @@
-package modelo.dao;
+package MODELO.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ public abstract class DAOAbstrato implements AutoCloseable {
 
     protected Connection conexao;
 
-    public AbstratoDAO() {
+    public DAOAbstrato() {
         try {
             conexao = DriverManager.getConnection(url, usuario, senha);
         } catch (SQLException e) {
