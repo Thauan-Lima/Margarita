@@ -1,23 +1,23 @@
 package MODELO.DAO;
 
-import Modelo.Entidade.Medico;
+import MODELO.ENTIDADE.Medico;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DAOMedico extends DAOAbstrato {
     
-    public boolean salvarMedico (Medico medico) {
+    public boolean medicoSalvar (Medico m) {
         String ordem = "INSERT INTO Medico (nome, matricula, especialidade, salario) VALUES (?, ?, ?, ?)";
         boolean sucesso;
 
-        try (PreparedStatement pS = conexao.prepareStatement(ordem)) { 
-            pS.setString(1, medico.getNome());
-            pS.setInt(2, medico.getMatricula());
-            pS.setString(3, medico.getEspecialidade());
-            pS.setDouble(4, medico.getSalario());
+        try (PreparedStatement stm = conexao.prepareStatement(ordem)) { 
+            stm.setString(1, medico.getNome());
+            stm.setInt(2, medico.getMatricula());
+            stm.setString(3, medico.getEspecialidade());
+            stm.setDouble(4, medico.getSalario());
 
-            sucesso = pS.executeUpdate() == 1;
+            sucesso = stm.executeUpdate() == 1;
         } catch (SQLException e) {
             sucesso = false;
         }
