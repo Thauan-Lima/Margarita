@@ -81,9 +81,9 @@ public ArrayList<Consulta> exibirAllConsultas() {
                 c.setMedico(m);
                 c.setPaciente(p);
                 c.setHorario(rS.getObject("horario", LocalDateTime.class));
-                consulta.setValor(rS.getInt("valor"));
+                c.setValor(rS.getInt("valor"));
 
-                consultas.add(consulta);
+                consultas.add(c);
             }
         } catch (SQLException e) {
             e.printStackTrace();
