@@ -1,34 +1,34 @@
-package Visao;
+package VISAO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Modelo.Entidade.*;
-import Modelo.DAO.*;
-import Visao.DateUtil.DateUtil;
+import MODELO.ENTIDADE.*;
+import MODELO.DAO.*;
+import VISAO.UTIL.DateUtil;
 
-public class Teste {
+public class Terminal {
     public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
+        Scanner read = new Scanner(System.in);
         int resposta = 0, matricula = 0;
         String cpf = null;
-        Medico medico = null;
-        Paciente paciente = null;
-        Consulta consulta = null;
+        Medico m = null;
+        Paciente p = null;
+        Consulta c = null;
 
         do {
-            System.out.println("\n1. Sair do programa"); // ✓
-            System.out.println("2. Cadastrar novo médico"); // ✓
-            System.out.println("3. Cadastrar novo paciente"); // ✓
-            System.out.println("4. Buscar médico por matrícula"); // ✓
-            System.out.println("5. Buscar paciente por CPF"); // ✓
-            System.out.println("6. Cadastrar uma nova consulta"); // ✓
-            System.out.println("7. Remover uma consulta cadastrada"); // ✓
-            System.out.println("8. Atualizar o horário de uma consulta cadastrada"); // ✓
-            System.out.println("9. Gerar relatório de consultas"); // ✓
+            System.out.println("\n1. Sair do programa");
+            System.out.println("2. Cadastrar novo médico");
+            System.out.println("3. Cadastrar novo paciente");
+            System.out.println("4. Buscar médico por matrícula");
+            System.out.println("5. Buscar paciente por CPF");
+            System.out.println("6. Cadastrar uma nova consulta");
+            System.out.println("7. Remover uma consulta cadastrada");
+            System.out.println("8. Atualizar o horário de uma consulta cadastrada");
+            System.out.println("9. Gerar relatório de consultas");
             System.out.print("Digite o número da opção:");
             resposta = scanner.nextInt();
-            scanner.nextLine();
+            read.nextLine();
 
             switch (resposta) {
                 case 1:
@@ -36,23 +36,23 @@ public class Teste {
                     break;
 
                 case 2:
-                    medico = new Medico();
+                    m = new Medico();
 
                     System.out.println("Informe o nome do médico");
-                    medico.setNome(scanner.nextLine());
+                    m.setNome(read.nextLine());
 
                     System.out.println("Informe a matricula do médico");
-                    medico.setMatricula(scanner.nextInt());
-                    scanner.nextLine();
+                    m.setMatricula(scanner.nextInt());
+                    read.nextLine();
 
                     System.out.println("Informe a especialidade do médico");
-                    medico.setEspecialidade(scanner.nextLine());
+                    m.setEspecialidade(read.nextLine());
                     
                     System.out.println("Informe o salário do médico");
-                    medico.setSalario(scanner.nextDouble());
+                    m.setSalario(read.nextDouble());
                     
                     try (DAOMedico dM = new DAOMedico()) {
-                        if(dM.salvarMedico(medico))
+                        if(dM.medicoSalvar(m))
                             System.out.println("Médico foi salvo com sucesso.");
                         else
                             System.out.println("Erro ao salvar o médico.");
@@ -60,19 +60,19 @@ public class Teste {
                     break;
 
                 case 3:
-                    paciente = new Paciente();
+                    p = new Paciente();
                         
                     System.out.println("Informe o nome do paciente");
-                    paciente.setNome(scanner.nextLine());
+                    p.setNome(read.nextLine());
 
                     System.out.println("Informe o CPF do paciente");
-                    paciente.setCpf(scanner.nextLine());
+                    p.setCpf(read.nextLine());
 
                     System.out.println("Informe a doença do paciente");
-                    paciente.setDoenca(scanner.nextLine());
+                    p.setDoenca(read.nextLine());
                     
                     try (DAOPaciente dP = new DAOPaciente()) {
-                        if(dP.salvarPaciente(paciente))
+                        if(dP.pacienteSalvar(p))
                             System.out.println("Paciente foi salvo com sucesso.");
                         else
                             System.out.println("Erro ao salvar o paciente.");
@@ -81,12 +81,12 @@ public class Teste {
 
                 case 4:
                     System.out.println("Escreva a matrícula do médico:");
-                    matricula = scanner.nextInt();
+                    matricula = read.nextInt();
                     
                     try (DAOMedico dM = new DAOMedico()) {
-                        medico = dM.buscarMedico(matricula);
-                        if(medico != null)
-                            System.out.println(medico);
+                        m = dM.medicoBuscar(matricula);
+                        if(m != null)
+                            System.out.println(m);
                         else
                             System.out.println("Erro ao buscar o médico.");
                     }
@@ -94,35 +94,35 @@ public class Teste {
 
                 case 5:
                     System.out.println("Escreva o CPF do paciente:");
-                    cpf = scanner.nextLine();
+                    cpf = read.nextLine();
 
                     try (DAOPaciente dP = new DAOPaciente()) {
-                        paciente = dP.buscarPaciente(cpf);
-                        if(paciente != null)
-                            System.out.println(paciente);
+                        p = dP.pacienteBuscar(cpf);
+                        if(p != null)
+                            System.out.println(p);
                         else
                             System.out.println("Erro ao buscar o paciente.");
                     }
                     break;
 
                 case 6:
-                    consulta = new Consulta();
+                    c = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
-                    matricula = scanner.nextInt();
-                    scanner.nextLine();
+                    matricula = read.nextInt();
+                    read.nextLine();
 
                     System.out.println("Informe o CPF do paciente");
-                    cpf = scanner.nextLine();
+                    cpf = read.nextLine();
 
                     System.out.println("Informe o horário da consulta (dd/MM/uuuu HH:mm:ss");
-                    consulta.setHorario(DateUtil.stringToDate(scanner.nextLine(), LocalDateTime.class));
+                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
 
                     System.out.println("Informe o valor da consulta");
-                    consulta.setValor(scanner.nextInt());
+                    c.setValor(read.nextInt());
                     
                     try (DAOConsulta dC = new DAOConsulta()) {
-                        if(dC.cadastrarConsulta(matricula, cpf, consulta))
+                        if(dC.consultaCadastrar(matricula, cpf, consulta))
                             System.out.println("Consulta cadastrada com sucesso.");
                         else
                             System.out.println("Erro ao salvar a consulta.");
@@ -130,20 +130,20 @@ public class Teste {
                     break;
 
                 case 7:
-                    consulta = new Consulta();
+                    c = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
-                    matricula = scanner.nextInt();
-                    scanner.nextLine();
+                    matricula = read.nextInt();
+                    read.nextLine();
 
                     System.out.println("Informe o CPF do paciente");
-                    cpf = scanner.nextLine();
+                    cpf = read.nextLine();
                     
                     System.out.println("Informe o horário da consulta");
-                    consulta.setHorario(DateUtil.stringToDate(scanner.nextLine(), LocalDateTime.class));
+                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
                     
                     try (DAOConsulta dC = new DAOConsulta()) {
-                        if(dC.deletarConsulta(matricula, cpf, consulta))
+                        if(dC.consultaDeletar(matricula, cpf, consulta))
                             System.out.println("Consulta removida com sucesso.");
                         else
                             System.out.println("Erro ao remover a consulta.");
@@ -151,15 +151,15 @@ public class Teste {
                     break;
 
                 case 8:
-                    consulta = new Consulta();
+                    c = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
-                    matricula = scanner.nextInt();
-                    scanner.nextLine();
+                    matricula = read.nextInt();
+                    read.nextLine();
                     System.out.println("Informe o CPF do paciente");
-                    cpf = scanner.nextLine();
+                    cpf = read.nextLine();
                     System.out.println("Informe o antigo horário da consulta");
-                    consulta.setHorario(DateUtil.stringToDate(scanner.nextLine(), LocalDateTime.class));
+                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
                     System.out.println("Informe o novo horário da consulta");
                     LocalDateTime lDT = DateUtil.stringToDate(scanner.nextLine(), LocalDateTime.class);
                     
@@ -189,6 +189,6 @@ public class Teste {
                     break;
             }
         }while (resposta != 1);
-        scanner.close();
+        read.close();
     }
 }
