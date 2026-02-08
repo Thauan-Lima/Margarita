@@ -66,10 +66,10 @@ public class Terminal {
                     p.setNome(read.nextLine());
 
                     System.out.println("Informe o CPF do paciente");
-                    p.setCpf(read.nextLine());
+                    paciente.setCpf(read.nextLine());
 
                     System.out.println("Informe a doença do paciente");
-                    p.setDoenca(read.nextLine());
+                    paciente.setDoenca(read.nextLine());
                     
                     try (DAOPaciente dP = new DAOPaciente()) {
                         if(dP.pacienteSalvar(p))
@@ -84,7 +84,7 @@ public class Terminal {
                     matricula = read.nextInt();
                     
                     try (DAOMedico dM = new DAOMedico()) {
-                        m = dM.medicoBuscar(matricula);
+                        medico = dM.medicoBuscar(matricula);
                         if(m != null)
                             System.out.println(m);
                         else
@@ -97,7 +97,7 @@ public class Terminal {
                     cpf = read.nextLine();
 
                     try (DAOPaciente dP = new DAOPaciente()) {
-                        p = dP.pacienteBuscar(cpf);
+                        paciente = dP.pacienteBuscar(cpf);
                         if(p != null)
                             System.out.println(p);
                         else
@@ -106,7 +106,7 @@ public class Terminal {
                     break;
 
                 case 6:
-                    c = new Consulta();
+                    consulta = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
                     matricula = read.nextInt();
@@ -116,10 +116,10 @@ public class Terminal {
                     cpf = read.nextLine();
 
                     System.out.println("Informe o horário da consulta (dd/MM/uuuu HH:mm:ss");
-                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
+                    consulta.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
 
                     System.out.println("Informe o valor da consulta");
-                    c.setValor(read.nextInt());
+                    consulta.setValor(read.nextInt());
                     
                     try (DAOConsulta dC = new DAOConsulta()) {
                         if(dC.consultaCadastrar(matricula, cpf, consulta))
@@ -130,7 +130,7 @@ public class Terminal {
                     break;
 
                 case 7:
-                    c = new Consulta();
+                    consulta = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
                     matricula = read.nextInt();
@@ -140,7 +140,7 @@ public class Terminal {
                     cpf = read.nextLine();
                     
                     System.out.println("Informe o horário da consulta");
-                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
+                    consulta.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
                     
                     try (DAOConsulta dC = new DAOConsulta()) {
                         if(dC.consultaDeletar(matricula, cpf, consulta))
@@ -151,7 +151,7 @@ public class Terminal {
                     break;
 
                 case 8:
-                    c = new Consulta();
+                    consulta = new Consulta();
                         
                     System.out.println("Informe a matricula do médico");
                     matricula = read.nextInt();
@@ -159,7 +159,7 @@ public class Terminal {
                     System.out.println("Informe o CPF do paciente");
                     cpf = read.nextLine();
                     System.out.println("Informe o antigo horário da consulta");
-                    c.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
+                    consulta.setHorario(DateUtil.stringToDate(read.nextLine(), LocalDateTime.class));
                     System.out.println("Informe o novo horário da consulta");
                     LocalDateTime lDT = DateUtil.stringToDate(scanner.nextLine(), LocalDateTime.class);
                     
@@ -173,7 +173,7 @@ public class Terminal {
                 
                 case 9:
                     try (DAOConsulta dC = new DAOConsulta()) {
-                        ArrayList<Consulta> consultas = dC.exibirTodasAsConsultas();
+                        ArrayList<Consulta> consultas = dC.exibirAllConsultas();
                         // Em teste
                         if(!(consultas.isEmpty()))
                             consultas.forEach(numreroConsulta -> {
