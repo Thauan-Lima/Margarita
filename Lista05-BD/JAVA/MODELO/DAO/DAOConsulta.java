@@ -28,3 +28,19 @@ public class DAOConsulta extends DAOAbstrato {
         }
         return sucesso;
     }
+
+public boolean consultaDeletar(int matricula, String cpf, Consulta consulta) {
+        String sql = "DELETE FROM Consulta WHERE idMedico = (SELECT idMedico FROM Medico WHERE matricula = ?) AND idPaciente = (SELECT idPaciente FROM Paciente WHERE cpf = ?) AND horario = ?";
+        boolean sucesso;
+
+        try(PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, matricula);
+            stmt.setString(2, cpf);
+            stmt.setObject(3, consulta.getHorario());
+
+            sucesso = stmt.executeUpdate() == 1;
+        } catch (SQLException e) {
+            sucesso = false;
+        }
+        return sucesso;
+    }
