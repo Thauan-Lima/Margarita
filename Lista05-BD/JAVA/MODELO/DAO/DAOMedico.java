@@ -8,16 +8,16 @@ import java.sql.ResultSet;
 public class DAOMedico extends DAOAbstrato {
     
     public boolean medicoSalvar (Medico m) {
-        String ordem = "INSERT INTO Medico (nome, matricula, especialidade, salario) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Medico (nome, matricula, especialidade, salario) VALUES (?, ?, ?, ?)";
         boolean sucesso;
 
-        try (PreparedStatement stm = conexao.prepareStatement(ordem)) { 
-            stm.setString(1, medico.getNome());
-            stm.setInt(2, medico.getMatricula());
-            stm.setString(3, medico.getEspecialidade());
-            stm.setDouble(4, medico.getSalario());
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) { 
+            stmt.setString(1, medico.getNome());
+            stmt.setInt(2, medico.getMatricula());
+            stmt.setString(3, medico.getEspecialidade());
+            stmt.setDouble(4, medico.getSalario());
 
-            sucesso = stm.executeUpdate() == 1;
+            sucesso = stmt.executeUpdate() == 1;
         } catch (SQLException e) {
             sucesso = false;
         }
@@ -25,25 +25,25 @@ public class DAOMedico extends DAOAbstrato {
         return sucesso;
     }
 
-    public Medico buscarMedico(int matricula) {
-        String ordem = "SELECT * FROM Medico WHERE matricula = ?";
-        Medico medico = new Medico();
+    public Medico medicoBuscar(int matricula) {
+        String sql = "SELECT * FROM Medico WHERE matricula = ?";
+        Medico m = new Medico();
 
-        try (PreparedStatement pS = conexao.prepareStatement(ordem)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             pS.setInt(1, matricula);
-            ResultSet rS = pS.executeQuery();
+            ResultSet rS = stmt.executeQuery();
             
             if (rS.next()) {
-                medico.setIdMedico(rS.getInt("idMedico"));
-                medico.setNome(rS.getString("nome"));
-                medico.setMatricula(rS.getInt("matricula"));
-                medico.setEspecialidade(rS.getString("especialidade"));
-                medico.setSalario(rS.getInt("salario"));
+                m.setIdMedico(rS.getInt("idMedico"));
+                m.setNome(rS.getString("nome"));
+                m.setMatricula(rS.getInt("matricula"));
+                m.setEspecialidade(rS.getString("especialidade"));
+                m.setSalario(rS.getInt("salario"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return medico;
+        return m;
     }
 }
