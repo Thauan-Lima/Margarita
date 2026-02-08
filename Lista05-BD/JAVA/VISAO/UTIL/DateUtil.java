@@ -51,8 +51,7 @@ public final class DateUtil {
 
         } else {
             throw new RuntimeException(
-                    date.getClass() + " is not a valid type for this method!"
-            );
+                    date.getClass() + " is not a valid type for this method!");
         }
     }
 }
