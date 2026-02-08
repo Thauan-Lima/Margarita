@@ -12,9 +12,9 @@ public class Terminal {
         Scanner read = new Scanner(System.in);
         int resposta = 0, matricula = 0;
         String cpf = null;
-        Medico m = null;
-        Paciente p = null;
-        Consulta c = null;
+        Medico medico = null;
+        Paciente paciente = null;
+        Consulta consulta = null;
 
         do {
             System.out.println("\n1. Sair do programa");
@@ -36,23 +36,23 @@ public class Terminal {
                     break;
 
                 case 2:
-                    m = new Medico();
+                    medico = new Medico();
 
                     System.out.println("Informe o nome do médico");
-                    m.setNome(read.nextLine());
+                    medico.setNome(read.nextLine());
 
                     System.out.println("Informe a matricula do médico");
-                    m.setMatricula(scanner.nextInt());
+                    medico.setMatricula(scanner.nextInt());
                     read.nextLine();
 
                     System.out.println("Informe a especialidade do médico");
-                    m.setEspecialidade(read.nextLine());
+                    medico.setEspecialidade(read.nextLine());
                     
                     System.out.println("Informe o salário do médico");
-                    m.setSalario(read.nextDouble());
+                    medico.setSalario(read.nextDouble());
                     
                     try (DAOMedico dM = new DAOMedico()) {
-                        if(dM.medicoSalvar(m))
+                        if(dM.medicoSalvar(medico))
                             System.out.println("Médico foi salvo com sucesso.");
                         else
                             System.out.println("Erro ao salvar o médico.");
@@ -60,7 +60,7 @@ public class Terminal {
                     break;
 
                 case 3:
-                    p = new Paciente();
+                    paciente = new Paciente();
                         
                     System.out.println("Informe o nome do paciente");
                     p.setNome(read.nextLine());
